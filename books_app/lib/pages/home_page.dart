@@ -1,4 +1,5 @@
 import 'package:books_app/providers/books_provider.dart';
+import 'package:books_app/providers/user_provider.dart';
 import 'package:books_app/widgets/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,9 +15,53 @@ class HomePage extends StatelessWidget {
         title: const Text("Book Store"),
       ),
       body: SingleChildScrollView(
-        child: Column(
+          child: Consumer<UserProvider>(
+        builder: (context, userProvider, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            userProvider.isAuths
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        userProvider.logout();
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(12.0),
+                        //${userProvider.user.username}
+                        child: Text("LOGOUT "),
+                      ),
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            GoRouter.of(context).push('/signup');
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text("Sign up"),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            GoRouter.of(context).push('/signin');
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text("Sign in"),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -59,7 +104,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }

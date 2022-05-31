@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'package:books_app/models/book.dart';
+import 'package:books_app/services/client.dart';
 import "package:dio/dio.dart";
 
 class DioClient {
-  final Dio _dio = Dio();
-
-  final _baseUrl = 'https://coded-books-api-auth.herokuapp.com';
-
   Future<List<Book>> getBooks() async {
     List<Book> books = [];
     try {
-      Response response = await _dio.get(_baseUrl + '/books');
+      Response response = await Client.dio.get('/books');
       books =
           (response.data as List).map((book) => Book.fromJson(book)).toList();
     } on DioError catch (error) {
@@ -30,7 +27,7 @@ class DioClient {
           book.image,
         ),
       });
-      Response response = await _dio.post(_baseUrl + '/books', data: data);
+      Response response = await Client.dio.post('/books', data: data);
       retrievedBook = Book.fromJson(response.data);
     } on DioError catch (error) {
       print(error);
@@ -51,8 +48,7 @@ class DioClient {
       });
       print(book.id);
 
-      Response response =
-          await _dio.put(_baseUrl + '/books/${book.id}', data: data);
+      Response response = await Client.dio.put('/books/${book.id}', data: data);
       retrievedBook = Book.fromJson(response.data);
     } on DioError catch (error) {
       print(error);
@@ -62,7 +58,7 @@ class DioClient {
 
   Future<void> deleteBook({required int bookId}) async {
     try {
-      await _dio.delete(_baseUrl + '/books/${bookId}');
+      await Client.dio.delete('/books/${bookId}');
     } on DioError catch (error) {
       print(error);
     }

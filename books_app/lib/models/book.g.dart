@@ -7,11 +7,12 @@ part of 'book.dart';
 // **************************************************************************
 
 Book _$BookFromJson(Map<String, dynamic> json) => Book(
-    id: json['id'] as int?,
-    title: json['title'] as String,
-    description: json['description'] as String,
-    image: json['image'] as String,
-    price: double.tryParse(json['price'].toString()) ?? 0);
+      id: json['id'] as int?,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      image: json['image'] as String,
+      price: (json['price'] as num).toDouble(),
+    );
 
 Map<String, dynamic> _$BookToJson(Book instance) => <String, dynamic>{
       'id': instance.id,

@@ -6,6 +6,4 @@
 In this demo students will learn how to authorize and authenticate a user.
 
 ## Steps:
-
-## Part 1: Setup
-1.
+Follow the auth workshop in warehouse, note that students have two seperate tasks Sign up, then /sign in
