@@ -5,7 +5,7 @@ import "package:dio/dio.dart";
 class DioClient {
   final Dio _dio = Dio();
 
-  final _baseUrl = 'https://coded-books-api-auth.herokuapp.com';
+  final _baseUrl = 'https://coded-books-api-auth.eapi.joincoded.com';
 
   Future<List<Book>> getBooks() async {
     List<Book> books = [];
